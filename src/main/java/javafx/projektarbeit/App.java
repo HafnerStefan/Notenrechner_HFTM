@@ -1,21 +1,58 @@
 package javafx.projektarbeit;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+/**
+ * JavaFX App
+ */
+public class App extends Application {
 
+    private static Scene scene;
     public static ObservableList<Modul> modulInputList = getInitailModulData();
 
-    public static void main(String args[]) {
-
-        System.out.println("Konsolen ausgabe damit Simeon seine Ausgabe für die Bewertung hat");
-        System.out.println(modulInputList.get(0).kursliste.get(0).notenliste.get(0));
-
+    public static void main(String[] args) {
+        launch();
     }
+
+    // methods
+
+    public static double round(double val, int sca) {
+
+        double s = Math.pow(10, sca);
+        return Math.round(val * s) / s;
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+
+        scene = new Scene(loadFXML("primary"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    static void setSceneRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    public static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxml + ".fxml"));
+        return fxmlLoader.load();
+
+    }// testgit
+
+    // Methode
+
+    // Data initialization
 
     public static ObservableList<Modul> getInitailModulData() {
 
@@ -67,4 +104,5 @@ public class Main {
         }
         return observableModulList;
     };
+
 }
